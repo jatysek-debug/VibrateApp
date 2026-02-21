@@ -14,20 +14,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Select Xcode
-        run: sudo xcode-select -switch /Applications/Xcode.app
-
       - name: Build App
         run: |
           xcodebuild \
           -scheme Example-iOS \
           -sdk iphoneos \
           -configuration Release \
-          CODE_SIGNING_ALLOWED=NO \
-          build
+          -derivedDataPath build \
+          CODE_SIGNING_ALLOWED=NO
 
-      - name: Upload Artifact
+      - name: Create Payload
+        run: |
+          mkdir Payload
+          cp -R build/Build/Products/Release-iphoneos/Example-iOS.app Payload/
+
+      - name: Create IPA
+        run: |
+          zip -r Example-iOS.ipa Payload
+
+      - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: VibrateApp-build
-          path: .
+          name: Example-iOS-IPA
+          path: Example-iOS.ipa
