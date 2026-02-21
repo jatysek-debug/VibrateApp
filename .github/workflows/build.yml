@@ -20,7 +20,7 @@ jobs:
           -scheme Example-iOS \
           -sdk iphoneos \
           -configuration Release \
-          -derivedDataPath build \
+          -derivedDataPath output \
           CODE_SIGNING_ALLOWED=NO
 
       - name: Create Payload
