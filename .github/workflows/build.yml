@@ -26,7 +26,7 @@ jobs:
       - name: Create Payload
         run: |
           mkdir Payload
-          cp -R build/Build/Products/Release-iphoneos/Example-iOS.app Payload/
+          cp -R output/Build/Products/Release-iphoneos/Example-iOS.app Payload/
 
       - name: Create IPA
         run: |
