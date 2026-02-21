@@ -20,7 +20,7 @@ jobs:
       - name: Build App
         run: |
           xcodebuild \
-          -scheme VibrateApp \
+          -scheme Example-iOS \
           -sdk iphoneos \
           -configuration Release \
           CODE_SIGNING_ALLOWED=NO \
