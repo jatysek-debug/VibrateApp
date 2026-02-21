@@ -1,6 +1,9 @@
 name: Build iOS App
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -8,30 +11,8 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Prepare App
-        run: |
-          mkdir VibrateApp
-          mv *.swift VibrateApp/
-          cat > VibrateApp/Info.plist <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-  <key>CFBundleIdentifier</key>
-  <string>com.example.vibrate</string>
-  <key>CFBundleName</key>
-  <string>Vibrate</string>
-  <key>CFBundleExecutable</key>
-  <string>Vibrate</string>
-  <key>CFBundlePackageType</key>
-  <string>APPL</string>
-</dict>
-</plist>
-EOF
-
-      - name: Build IPA
-        run: |
-          xcodebuild -project VibrateApp.xcodeproj -scheme Vibrate -sdk iphoneos -configuration Release archive
+      - name: Show files
+        run: ls -R
