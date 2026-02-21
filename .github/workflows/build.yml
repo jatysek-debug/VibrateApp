@@ -1,4 +1,4 @@
-name: Build iOS App
+name: Build iOS IPA
 
 on:
   push:
@@ -14,5 +14,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Show files
-        run: ls -R
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode.app
+
+      - name: Build App
+        run: |
+          xcodebuild \
+          -scheme VibrateApp \
+          -sdk iphoneos \
+          -configuration Release \
+          CODE_SIGNING_ALLOWED=NO \
+          build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: VibrateApp-build
+          path: .
